@@ -61,14 +61,21 @@ pipeline {
 
         stage('전환여부 확인') {
             steps {
-                script {
-                    returnValue = input message: 'Green 전환?', ok: "Yes", parameters: [booleanParam(defaultValue: true, name: 'IS_SWITCHED')]
-                    if (returnValue) {
-                        sh "kubectl patch -n anotherclass-221 svc api-tester -p '{\"spec\": {\"selector\": {\"blue-green-no\": \"2\"}}}'"
-                    }
-                }
-            }
-        }
+        		script {
+            		def returnValue = input(
+	                message: 'Green 전환?',
+	                ok: "Yes",
+	                parameters: [booleanParam(defaultValue: true, name: 'IS_SWITCHED')]
+		            )
+		            if (returnValue['IS_SWITCHED']) {
+		                sh """
+		                  kubectl patch -n anotherclass-221 svc api-tester \
+		                  -p '{"spec": {"selector": {"blue-green-no": "2"}}}'
+		                """
+		            }
+		        }
+	    	}
+		}
 
         stage('롤백 확인') {
             steps {
