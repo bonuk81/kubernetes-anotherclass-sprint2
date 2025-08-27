@@ -19,7 +19,7 @@ pipeline {
         // GITHUB_USERNAME = ""
 
         // 아래 부분 수정(x)
-        GITHUB_URL = "https://github.com/${GITHUB_USERNAME}/kubernetes-anotherclass-sprint2.git"
+        GITHUB_URL = "https://github.com/bonuk81/kubernetes-anotherclass-sprint2.git"
         CLASS_NUM = '2221'
     }
 
